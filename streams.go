@@ -1,25 +1,25 @@
 package apollo
 
-import "io"
-
-// Stream is an audio stream
-type Stream interface {
+// ReadStream is a read-only stream
+type ReadStream interface {
 	// Name is a human-readable descriptor for the stream.
 	Name() string
 	// SampleRate is the sample rate of the audio stream in Hz
 	SampleRate() int
 	// BitDepth is the number of bits per sample
 	BitDepth() int
-}
-
-// ReadStream is a read-only stream
-type ReadStream interface {
-	Stream
-	io.Reader
+	// Data returns the data channel
+	Data() <-chan byte
 }
 
 // WriteStream is a read-only stream
 type WriteStream interface {
-	Stream
-	io.Writer
+	// Name is a human-readable descriptor for the stream.
+	Name() string
+	// SampleRate is the sample rate of the audio stream in Hz
+	SampleRate() int
+	// BitDepth is the number of bits per sample
+	BitDepth() int
+	// Data returns the data channel
+	Data() chan<- byte
 }

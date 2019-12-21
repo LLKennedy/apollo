@@ -9,84 +9,86 @@ import (
 
 const defaultFrequency = 1000
 
-// Generator generates sine waves
-type Generator struct {
+// Module generates sine waves
+type Module struct {
 	name       string
 	id         uuid.UUID
+	data       chan byte
 	sampleRate int
 	bitDepth   int
 	frequency  int
 	magnitude  int
 }
 
-// New creates a new Sine Wave generator
-func New(sampleRate, bitDepth, frequency, magnitude int) *Generator {
-	g := &Generator{
+// New creates a new Sine Wave Module
+func New(sampleRate, bitDepth, frequency, magnitude int) *Module {
+	m := &Module{
 		name:       "Sine Wave",
 		id:         uuid.New(),
+		data:       make(chan byte),
 		sampleRate: sampleRate,
 		bitDepth:   bitDepth,
 		frequency:  frequency,
 		magnitude:  magnitude,
 	}
-	if g.frequency == 0 {
-		g.frequency = defaultFrequency
+	if m.frequency == 0 {
+		m.frequency = defaultFrequency
 	}
-	if g.magnitude < 0 || g.magnitude > 100 {
-		g.magnitude = 100
+	if m.magnitude < 0 || m.magnitude > 100 {
+		m.magnitude = 100
 	}
-	return g
+	return m
 }
 
 // Name is a human-readable descriptor for the module.
-func (g *Generator) Name() string {
-	if g == nil {
+func (m *Module) Name() string {
+	if m == nil {
 		return ""
 	}
-	return g.name
+	return m.name
 }
 
 // ID is a randomly-generated ID for the module in case of duplicate names.
-func (g *Generator) ID() uuid.UUID {
-	if g == nil {
+func (m *Module) ID() uuid.UUID {
+	if m == nil {
 		var nilID uuid.UUID
 		return nilID
 	}
-	return g.id
+	return m.id
 }
 
 // InputStreams returns all inputs - this list must be consistently ordered and of consistent length for a given module.
-func (g *Generator) InputStreams() []apollo.WriteStream {
+func (m *Module) InputStreams() []apollo.WriteStream {
 	return []apollo.WriteStream{}
 }
 
 // OutputStreams returns all outputs - this list must be consistently ordered and of consisten length for a given module.
-func (g *Generator) OutputStreams() []apollo.ReadStream {
-	return []apollo.ReadStream{output{source: g}}
+func (m *Module) OutputStreams() []apollo.ReadStream {
+	return []apollo.ReadStream{output{source: m}}
 }
 
 // Fiddles returns all the things you can fiddle with on the module - buttons, dials, etc.
-func (g *Generator) Fiddles() []apollo.Fiddle {
-	return []apollo.Fiddle{frequencyDial{source: g}}
+func (m *Module) Fiddles() []apollo.Fiddle {
+	return []apollo.Fiddle{frequencyDial{source: m}}
 }
 
 // SampleRate is the sample rate of the audio stream in Hz
-func (g *Generator) SampleRate() int {
-	if g == nil {
+func (m *Module) SampleRate() int {
+	if m == nil {
 		return 0
 	}
-	return g.sampleRate
+	return m.sampleRate
 }
 
 // BitDepth is the number of bits per sample
-func (g *Generator) BitDepth() int {
-	if g == nil {
+func (m *Module) BitDepth() int {
+	if m == nil {
 		return 0
 	}
-	return g.bitDepth
+	return m.bitDepth
 }
 
-func (g *Generator) Read(p []byte) (n int, err error) {
+func (m *Module) Read(p []byte) (n int, err error) {
 	//TODO: generate a sine wave
 	return 0, fmt.Errorf("not implemented")
 }

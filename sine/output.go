@@ -1,7 +1,7 @@
 package sine
 
 type output struct {
-	source *Generator
+	source *Module
 }
 
 // Name is a human-readable descriptor for the stream.
@@ -19,6 +19,6 @@ func (o output) BitDepth() int {
 	return o.source.BitDepth()
 }
 
-func (o output) Read(p []byte) (n int, err error) {
-	return o.source.Read(p)
+func (o output) Data() <-chan byte {
+	return o.source.data
 }

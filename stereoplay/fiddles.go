@@ -2,35 +2,35 @@ package sine
 
 import "fmt"
 
-type frequencyDial struct {
+type balanceDial struct {
 	source *Module
 }
 
-func (d frequencyDial) Name() string {
+func (d balanceDial) Name() string {
 	return "Frequency (Hz)"
 }
 
-func (d frequencyDial) Range() ([]int, bool) {
+func (d balanceDial) Range() ([]int, bool) {
 	return []int{1, 100000}, false
 }
 
-func (d frequencyDial) Current() int {
-	return d.source.frequency
+func (d balanceDial) Current() int {
+	return d.source.balance
 }
 
-func (d frequencyDial) Default() int {
-	return defaultFrequency
+func (d balanceDial) Default() int {
+	return defaultBalance
 }
 
-func (d frequencyDial) Set(f int) error {
+func (d balanceDial) Set(f int) error {
 	if f < 1 || f > 100000 {
 		return fmt.Errorf("out of range")
 	}
-	d.source.frequency = f
+	d.source.balance = f
 	return nil
 }
 
-func (d frequencyDial) ReadOnly() bool {
+func (d balanceDial) ReadOnly() bool {
 	return false
 }
 
