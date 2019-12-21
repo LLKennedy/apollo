@@ -21,10 +21,10 @@ type Module struct {
 	volume     int
 }
 
-// New creates a new Sine Wave Module
+// New creates a new Stereo Audio Player Module
 func New(sampleRate, bitDepth, balance, volume int) *Module {
 	m := &Module{
-		name:       "Sine Wave",
+		name:       "Stereo Player",
 		id:         uuid.New(),
 		leftData:   make(chan byte),
 		rightData:  make(chan byte),
