@@ -18,11 +18,11 @@ type Module struct {
 	sampleRate int
 	bitDepth   int
 	balance    int
-	magnitude  int
+	volume     int
 }
 
 // New creates a new Sine Wave Module
-func New(sampleRate, bitDepth, balance, magnitude int) *Module {
+func New(sampleRate, bitDepth, balance, volume int) *Module {
 	m := &Module{
 		name:       "Sine Wave",
 		id:         uuid.New(),
@@ -31,13 +31,13 @@ func New(sampleRate, bitDepth, balance, magnitude int) *Module {
 		sampleRate: sampleRate,
 		bitDepth:   bitDepth,
 		balance:    balance,
-		magnitude:  magnitude,
+		volume:     volume,
 	}
 	if m.balance == 0 {
 		m.balance = defaultBalance
 	}
-	if m.magnitude < 0 || m.magnitude > 100 {
-		m.magnitude = 100
+	if m.volume < 0 || m.volume > 100 {
+		m.volume = 100
 	}
 	return m
 }

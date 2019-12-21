@@ -34,34 +34,34 @@ func (d balanceDial) ReadOnly() bool {
 	return false
 }
 
-type magnitudeDial struct {
+type volumeDial struct {
 	source *Module
 }
 
-func (d magnitudeDial) Name() string {
-	return "Magnitude (%)"
+func (d volumeDial) Name() string {
+	return "volume (%)"
 }
 
-func (d magnitudeDial) Range() ([]int, bool) {
+func (d volumeDial) Range() ([]int, bool) {
 	return []int{0, 100}, false
 }
 
-func (d magnitudeDial) Current() int {
-	return d.source.magnitude
+func (d volumeDial) Current() int {
+	return d.source.volume
 }
 
-func (d magnitudeDial) Default() int {
+func (d volumeDial) Default() int {
 	return 100
 }
 
-func (d magnitudeDial) Set(f int) error {
+func (d volumeDial) Set(f int) error {
 	if f < 0 || f > 100 {
 		return fmt.Errorf("out of range")
 	}
-	d.source.magnitude = f
+	d.source.volume = f
 	return nil
 }
 
-func (d magnitudeDial) ReadOnly() bool {
+func (d volumeDial) ReadOnly() bool {
 	return false
 }
