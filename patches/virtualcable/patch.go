@@ -1,14 +1,16 @@
 package virtualcable
 
+import "github.com/llkennedy/apollo"
+
 // Patch is a virtual patch cable
 type Patch struct {
 	closer chan bool
 }
 
 // New creates a new virtual patch cable
-func New(from <-chan byte, to chan<- byte) *Patch {
+func New(from apollo.ReadStream, to apollo.WriteStream) *Patch {
 	p := new(Patch)
-	go p.connect(from, to)
+	go p.connect(from.Data(), to.Data())
 	return p
 }
 

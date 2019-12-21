@@ -1,8 +1,6 @@
 package sine
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 	"github.com/llkennedy/apollo"
 )
@@ -86,9 +84,4 @@ func (m *Module) BitDepth() int {
 		return 0
 	}
 	return m.bitDepth
-}
-
-func (m *Module) Read(p []byte) (n int, err error) {
-	//TODO: generate a sine wave
-	return 0, fmt.Errorf("not implemented")
 }

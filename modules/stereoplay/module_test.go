@@ -1,4 +1,4 @@
-package sine
+package stereoplay
 
 import (
 	"testing"

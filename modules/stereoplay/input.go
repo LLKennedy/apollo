@@ -1,4 +1,4 @@
-package sine
+package stereoplay
 
 type leftInput struct {
 	source *Module
