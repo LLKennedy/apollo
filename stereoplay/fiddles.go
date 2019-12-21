@@ -7,7 +7,7 @@ type balanceDial struct {
 }
 
 func (d balanceDial) Name() string {
-	return "Frequency (Hz)"
+	return "Left/Right Balance (%)"
 }
 
 func (d balanceDial) Range() ([]int, bool) {
@@ -23,7 +23,7 @@ func (d balanceDial) Default() int {
 }
 
 func (d balanceDial) Set(f int) error {
-	if f < 1 || f > 100000 {
+	if f < 0 || f > 100 {
 		return fmt.Errorf("out of range")
 	}
 	d.source.balance = f
